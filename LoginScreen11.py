@@ -17,8 +17,7 @@ class Login(QDialog):
     def login_func(self):
         username=self.username.text()
         print("Succesfully logged in with username : ", username)
-        print("merhaba")
-        print("merhaba")
+        
 
     def sign_up_func(self):
         with open(r'C:\Users\Ruben\Desktop\Flash\username.json', 'r') as json_file:
