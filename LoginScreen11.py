@@ -1,11 +1,13 @@
 import json
 import sys
+from tkinter import Widget
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QDialog,QApplication
 from PyQt5.uic import loadUi
-import User
+from User import User
 
 class Login(QDialog):
+    user = User()
     def __init__(self):
         super(Login,self).__init__()
         loadUi("LoginScreen11.ui",self)
@@ -17,20 +19,13 @@ class Login(QDialog):
     def login_func(self):
         username=self.username.text()
         print("Succesfully logged in with username : ", username)
-        print("merhaba")
-        print("merhaba")
 
     def sign_up_func(self):
-        with open(r'C:\Users\Ruben\Desktop\Flash\username.json', 'r') as json_file:
-            self.data = json.load(json_file)
-        print(self.data)
-        user=User()
-        user.name=self.username.text()
-        self.data[user.name]={"Level":user.level,"Total Time":user.totaltime}
-        print(self.data)
-        print(type(self.data))
-        with open(r'C:\Users\Ruben\Desktop\Flash\username.json','w') as json_file:
-            json.dump(self.data, json_file)
+        self.user.name = self.username.text()
+        user_dict = self.user.readjson()
+        user_dict[self.user.name] = {"Level": self.user.level, "Total Time": self.user.totaltime}
+        self.user.savejson(user_dict)
+        
 class Menu(QDialog):
     def __init__(self):
         super(Menu, self).__init__()
@@ -46,6 +41,15 @@ class Game(QDialog):
     def __init__(self):
         super(Game, self).__init__()
         loadUi("GameScreen.ui", self)
+        self.backButton.clicked.connect(self.back)
+        # self.level.setText(self.User.user.level)
+        # self.remainingWLabel.setText(remaining_func())
+    def back(self):
+        widget.setCurrentIndex(widget.currentIndex() - 1)
+    # def remaining_func(self):
+        
+
+    
 
 
 app=QApplication(sys.argv)
