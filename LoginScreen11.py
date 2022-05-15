@@ -20,6 +20,7 @@ class Login(QDialog):
         username=self.username.text()
         print("Succesfully logged in with username : ", username)
 
+
     def sign_up_func(self):
         self.user.name = self.username.text()
         user_dict = self.user.readjson()
